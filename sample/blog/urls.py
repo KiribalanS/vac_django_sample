@@ -8,7 +8,7 @@ urlpatterns = [
     path('html/', views.html),
     path('text', views.text),
     path('form', views.form),
-    path('submit', views.myf),
+    # path('submit', views.form),
     path('para/<str:name>', views.para ),
 
 ]

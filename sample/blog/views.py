@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 
 # Create your views here.
@@ -14,8 +15,6 @@ def college(request):
 
 def html(request):
     return render(request, 'index.html')
-def form(request):
-    return render(request, 'form.html')
 
 def text(request):
     return render(request, 'text.html',
@@ -31,7 +30,14 @@ def para(request, name):
         }
     )
 
-def myf(request):
-    name = request.POST.get("name")
-    print(name)
-    return HttpResponse("Form Submitted!")
+@csrf_exempt
+def form(request):
+    if request.method == "POST":
+        name = request.POST.get("name")
+        print(name)
+        return HttpResponse(f"Form Submitted!\nYour name is: {name}")
+    else:
+        return render(request, 'form.html')
+
+# def myf(request):
+#     return
